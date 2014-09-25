@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+# coding: utf-8
+
+require 'thor'
+require 'aws-sdk'
+require 'pp'
+
+
+class CfInvalidation < Thor
+
+  default_command :create
+
+  def initialize(*args)
+    super
+  end
+
+  desc 'create', 'create new invalidation'
+  option :paths,             :type => :string, :aliases => '-p', :desc => "create invalidation file. must begin with a slash(/). multi object (,)"
+  option :access_key_id,     :type => :string, :aliases => '-i', :desc => "access key id"
+  option :secret_access_key, :type => :string, :aliases => '-s', :desc => "secret access id"
+  option :distribution_id,   :type => :string, :aliases => '-d', :desc => "distribution id"
+  def create
+
+    @client = AWS::CloudFront.new(
+      :access_key_id     => options[:access_key_id],
+      :secret_access_key => options[:secret_access_key]
+    ).client
+
+    items = options[:paths].split(',').map do |path|
+      '/' + path
+    end
+
+    paths = {
+      :quantity => items.length,
+      :items    => items
+    }
+
+    opt = {
+      :distribution_id    => options[:distribution_id],
+      :invalidation_batch => {
+        :paths               => paths,
+        :caller_reference    => "call_ref_#{Time.now.utc.to_i}"
+      }
+    }
+
+    res = @client.create_invalidation(opt)
+    pp res
+  end
+end
+
+
+CfInvalidation.start
