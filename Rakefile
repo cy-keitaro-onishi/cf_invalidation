@@ -15,11 +15,11 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://guides.rubygems.org/specification-reference/ for more options
   gem.name = "cf_invalidation"
-  gem.homepage = "http://github.com/keitarou/cf_invalidation"
+  gem.homepage = "http://github.com/cy-keitaro-onishi/cf_invalidation"
   gem.license = "MIT"
   gem.summary = "aws cloudfront create invalidations"
   gem.description = "aws cloudfront create invalidations"
-  gem.email = "keitarou.oonishi@gmail.com"
+  gem.email = "keitaro-onishi@cybird.co.jp"
   gem.authors = ["keitarou oonishi"]
   # dependencies defined in Gemfile
 end
