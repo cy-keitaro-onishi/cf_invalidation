@@ -9,5 +9,5 @@ group :development do
   gem "simplecov", ">= 0"
 end
 
-gem 'aws-sdk'
+gem 'aws-sdk', "1.58.0"
 gem 'thor'
